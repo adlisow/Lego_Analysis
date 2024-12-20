@@ -2,6 +2,7 @@ import os
 import gzip
 import shutil
 import requests
+from src.utils import get_repo_path
 
 # Lista plików do pobrania
 FILES = [
@@ -20,15 +21,18 @@ FILES = [
 ]
 
 BASE_URL = "https://cdn.rebrickable.com/media/downloads/"
-RAW_DATA_DIR = "../data/raw"
-PROCESSED_DATA_DIR = "../data/processed"
+
+# Ścieżki do folderów
+repo_path = get_repo_path()
+RAW_DATA_DIR = repo_path / "data/raw"
+PROCESSED_DATA_DIR = repo_path / "data/processed"
 
 # Funkcja pobierająca pliki do folderu data/raw
 def download_files():
     os.makedirs(RAW_DATA_DIR, exist_ok=True)
     for file_name in FILES:
         url = f"{BASE_URL}{file_name}"
-        output_path = os.path.join(RAW_DATA_DIR, file_name)
+        output_path = RAW_DATA_DIR / file_name
         print(f"Downloading {file_name}...")
         response = requests.get(url, stream=True)
         if response.status_code == 200:
@@ -42,13 +46,13 @@ def download_files():
 def process_files():
     os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
     for file_name in FILES:
-        raw_file_path = os.path.join(RAW_DATA_DIR, file_name)
+        raw_file_path = RAW_DATA_DIR / file_name
         if not os.path.exists(raw_file_path):
             print(f"File {raw_file_path} does not exist. Skipping.")
             continue
 
         processed_file_name = file_name.replace(".gz", "")
-        processed_file_path = os.path.join(PROCESSED_DATA_DIR, processed_file_name)
+        processed_file_path = PROCESSED_DATA_DIR / processed_file_name
 
         print(f"Processing {file_name}...")
         try:
