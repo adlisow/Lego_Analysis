@@ -1,0 +1,20 @@
+schema: '2.0'
+stages:
+  download_and_process:
+    cmd: python src/download_and_process.py
+    deps:
+    - path: src/download_and_process.py
+      hash: md5
+      md5: d33d430a7f7b01bb19f4eda2f53108f9
+      size: 2350
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: fed3985064836a5df38baf62cd188ea6.dir
+      size: 124652298
+      nfiles: 12
+    - path: data/raw
+      hash: md5
+      md5: a0e207b2c82fee8e416bbf55078fcf0b.dir
+      size: 14866646
+      nfiles: 12
