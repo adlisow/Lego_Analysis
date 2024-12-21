@@ -1,8 +1,8 @@
 stages:
   download_and_process:
-    cmd: python download_and_process.py
+    cmd: python src/download_and_process.py
     deps:
-    - data/raw
-    - download_and_process.py
+    - src/download_and_process.py
     outs:
+    - data/raw
     - data/processed
