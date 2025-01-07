@@ -3,6 +3,7 @@ import gzip
 import shutil
 import requests
 from src.utils import get_repo_path
+from config import FILES, BASE_URL, RAW_DATA_DIR, PROCESSED_DATA_DIR
 
 # Funkcja pobierająca pliki do folderu data/raw
 def download_files():
