@@ -1,32 +1,14 @@
 import pandas as pd
-from src.utils import get_repo_path
-
-# Ścieżki do katalogów
-REPO_PATH = get_repo_path()
-PROCESSED_DATA_DIR = REPO_PATH / "data/processed"
-PREPARED_DATA_DIR = REPO_PATH / "data/prepared"
-PREPARED_FILE_PATH = PREPARED_DATA_DIR / "prepared_data.csv"
-
-
-def load_processed_data():
-    files = ["inventories.csv", "sets.csv",
-             "themes.csv", "inventory_minifigs.csv", "inventory_parts.csv"]
-
-    dataframes = {
-        file.split(".")[0]: pd.read_csv(PROCESSED_DATA_DIR / file)
-        for file in files
-    }
-    return dataframes
-
+from config import PROCESSED_DATA_DIR, RESULTS_DIR
 
 def prepare_data():
-    # Wczytanie danych
-    data = load_processed_data()
-    inventories = data["inventories"]
-    sets = data["sets"]
-    themes = data["themes"]
-    inventory_minifigs = data["inventory_minifigs"]
-    inventory_parts = data["inventory_parts"]
+    """Przygotowuje dane do analizy PCA"""
+
+    inventories = pd.read_csv(PROCESSED_DATA_DIR / "inventories.csv")
+    sets = pd.read_csv(PROCESSED_DATA_DIR / "sets.csv")
+    themes = pd.read_csv(PROCESSED_DATA_DIR / "themes.csv")
+    inventory_minifigs = pd.read_csv(PROCESSED_DATA_DIR / "inventory_minifigs.csv")
+    inventory_parts = pd.read_csv(PROCESSED_DATA_DIR / "inventory_parts.csv")
 
     # Łączenie tabel
     sets_themes = pd.merge(sets, themes, left_on="theme_id", right_on="id", suffixes=("_set", "_theme"))
@@ -60,10 +42,8 @@ def prepare_data():
     final_data = final_data.drop(columns=["set_num", "theme_id"])
 
     # Zapisanie przetworzonych danych
-    PREPARED_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    final_data.to_csv(PREPARED_FILE_PATH, index=False)
-
-    print(f"Dane przygotowane i zapisane w {PREPARED_FILE_PATH}")
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    final_data.to_csv(RESULTS_DIR / "prepared_data.csv", index=False)
 
 if __name__ == "__main__":
     prepare_data()
