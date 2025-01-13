@@ -23,6 +23,6 @@ REPO_PATH = get_repo_path()
 RAW_DATA_DIR = REPO_PATH / "data" / "raw"
 PROCESSED_DATA_DIR = REPO_PATH / "data" / "processed"
 PREPARED_DATA_DIR = REPO_PATH / "data" / "prepared"
-RESULTS_DIR = REPO_PATH / "data" / "results"
+RESULTS_DIR = REPO_PATH / "results"
 PCA_RESULTS_FILE = RESULTS_DIR / "pca_results.csv"
 PLOTS_DIR = REPO_PATH / "plots"
