@@ -1,4 +1,3 @@
-from pathlib import Path
 from src.utils import get_repo_path
 
 # Lista plików do pobrania
@@ -20,6 +19,10 @@ FILES = [
 BASE_URL = "https://cdn.rebrickable.com/media/downloads/"
 
 # Ścieżki do folderów
-repo_path = get_repo_path()
-RAW_DATA_DIR = repo_path / "data/raw"
-PROCESSED_DATA_DIR = repo_path / "data/processed"
+REPO_PATH = get_repo_path()
+RAW_DATA_DIR = REPO_PATH / "data" / "raw"
+PROCESSED_DATA_DIR = REPO_PATH / "data" / "processed"
+PREPARED_DATA_DIR = REPO_PATH / "data" / "prepared"
+RESULTS_DIR = REPO_PATH / "results"
+PCA_RESULTS_FILE = RESULTS_DIR / "pca_results.csv"
+PLOTS_DIR = REPO_PATH / "plots"
