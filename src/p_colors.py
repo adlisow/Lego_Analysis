@@ -1,7 +1,11 @@
 import pandas as pd
 from config import PROCESSED_DATA_DIR, RESULTS_DIR
 
-def p_colors(color_name):
+def p_colors(color_name: str):
+    """
+    Funkcja generuje plik csv zestawów posortowanych po % udziale wybranego koloru podanym jako argument
+    i zapisuje wyniki do pliku csv w folderze results
+    """
 
     inventory_parts = pd.read_csv(PROCESSED_DATA_DIR / "inventory_parts.csv")
     colors = pd.read_csv(PROCESSED_DATA_DIR / "colors.csv")

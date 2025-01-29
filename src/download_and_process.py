@@ -2,11 +2,10 @@ import os
 import gzip
 import shutil
 import requests
-from src.utils import get_repo_path
 from config import FILES, BASE_URL, RAW_DATA_DIR, PROCESSED_DATA_DIR
 
-# Funkcja pobierająca pliki do folderu data/raw
 def download_files():
+    """Funkcja pobierająca pliki do folderu data/raw"""
     os.makedirs(RAW_DATA_DIR, exist_ok=True)
     for file_name in FILES:
         url = f"{BASE_URL}{file_name}"
@@ -20,8 +19,8 @@ def download_files():
         else:
             print(f"Failed to download {file_name}: {response.status_code}")
 
-# Funkcja rozpakowująca pliki do folderu data/processed
 def process_files():
+    """Funkcja rozpakowuje pliki do folderu data/processed (.csv.gz -> .csv)"""
     os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
     for file_name in FILES:
         raw_file_path = RAW_DATA_DIR / file_name
