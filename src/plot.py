@@ -4,8 +4,41 @@ import seaborn as sns
 from adjustText import adjust_text
 from config import PROCESSED_DATA_DIR, RESULTS_DIR, PLOTS_DIR
 
-pca_data = pd.read_csv(RESULTS_DIR / "pca_results.csv")
+data = pd.read_csv(RESULTS_DIR / "pca_results.csv")
 
+def parts_by_year_intervals():
+    """
+    Funkcja generuje wykres słupkowy porównujący średnią liczbę elementów na zestaw w wybranych przedziałach czasowych,
+    wykres typu .png zapisywany jest w folderze plots
+    """
+    sets = pd.read_csv(PROCESSED_DATA_DIR / 'sets.csv')
+
+    # Obliczenie średniej liczby części w przedziałach
+    sets_1990_1999 = sets[sets['year'].between(1990, 1999)]
+    sets_2000_2009 = sets[sets['year'].between(2000, 2009)]
+    sets_2010_2024 = sets[sets['year'].between(2010, 2024)]
+
+    avg_parts_1990_1999 = sets_1990_1999['num_parts'].mean()
+    avg_parts_2000_2009 = sets_2000_2009['num_parts'].mean()
+    avg_parts_2010_2024 = sets_2010_2024['num_parts'].mean()
+
+    # Przygotowanie danych do wykresu
+    visual_data = pd.DataFrame({
+        "Period": ["1990-1999", "2000-2009", "2010-2024"],
+        "Average Parts": [avg_parts_1990_1999, avg_parts_2000_2009, avg_parts_2010_2024]
+    })
+
+    # Tworzenie wykresu słupkowego
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x="Period", y="Average Parts", hue="Period", data=visual_data, palette="viridis", dodge=False,
+                legend=False)
+    plt.title("Porównanie średniej liczby części w zestawach LEGO", fontsize=16)
+    plt.ylabel("Średnia liczba części", fontsize=12)
+    plt.xlabel("Przedziały czasowe", fontsize=12)
+
+    PLOTS_DIR.mkdir(parents=True, exist_ok=True)
+    plot_path = PLOTS_DIR / 'average_parts_comparison.png'
+    plt.savefig(plot_path)
 
 def plot_pca(pca_data, x_col='principal_component_1', y_col='principal_component_2', theme_col='theme'):
     """
@@ -80,63 +113,7 @@ def plot_pca_top5(pca_data, x_col='principal_component_1', y_col='principal_comp
     plot_path = PLOTS_DIR / 'pca2_top5.png'
     plt.savefig(plot_path)
 
-def parts_by_year_intervals():
-    """
-    Funkcja generuje wykres słupkowy porównujący średnią liczbę elementów na zestaw w wybranych przedziałach czasowych,
-    wykres typu .png zapisywany jest w folderze plots
-    """
 
-    sets = pd.read_csv(PROCESSED_DATA_DIR / 'sets.csv')
-
-    # Obliczenie średniej liczby części w przedziałach
-    sets_1990_1999 = sets[sets['year'].between(1990, 1999)]
-    sets_2000_2009 = sets[sets['year'].between(2000, 2009)]
-    sets_2010_2024 = sets[sets['year'].between(2010, 2024)]
-
-    avg_parts_1990_1999 = sets_1990_1999['num_parts'].mean()
-    avg_parts_2000_2009 = sets_2000_2009['num_parts'].mean()
-    avg_parts_2010_2024 = sets_2010_2024['num_parts'].mean()
-
-    # Przygotowanie danych do wykresu
-    visual_data = pd.DataFrame({
-        "Period": ["1990-1999", "2000-2009", "2010-2024"],
-        "Average Parts": [avg_parts_1990_1999, avg_parts_2000_2009, avg_parts_2010_2024]
-    })
-
-    # Tworzenie wykresu słupkowego
-    plt.figure(figsize=(10, 6))
-    sns.barplot(x="Period", y="Average Parts", hue="Period", data=visual_data, palette="viridis", dodge=False,
-                legend=False)
-    plt.title("Porównanie średniej liczby części w zestawach LEGO", fontsize=16)
-    plt.ylabel("Średnia liczba części", fontsize=12)
-    plt.xlabel("Przedziały czasowe", fontsize=12)
-
-    PLOTS_DIR.mkdir(parents=True, exist_ok=True)
-    plot_path = PLOTS_DIR / 'average_parts_comparison.png'
-    plt.savefig(plot_path)
-
-def average_parts_histogram():
-    """
-    Funkcja generuje wykres słupkowy porównujący średnią liczbę elementów na zestaw/rok,
-    wykres typu .png zapisywany jest w folderze plots
-    """
-
-    sets = pd.read_csv(PROCESSED_DATA_DIR / 'sets.csv')
-
-    # Grupowanie danych po roku i obliczanie średniej liczby części
-    avg_parts_per_year = sets.groupby("year")['num_parts'].mean().reset_index()
-
-    plt.figure(figsize=(12, 6))
-    sns.barplot(x="year", y="num_parts", data=avg_parts_per_year, palette="viridis", hue="year", legend=False)
-
-    plt.title("Średnia liczba części w zestawach LEGO na przestrzeni lat", fontsize=16)
-    plt.xlabel("Rok", fontsize=12)
-    plt.ylabel("Średnia liczba części", fontsize=12)
-    plt.xticks(rotation=90)
-
-    PLOTS_DIR.mkdir(parents=True, exist_ok=True)
-    plot_path = PLOTS_DIR / 'average_parts_histogram.png'
-    plt.savefig(plot_path)
 
 def starwars():
     """
@@ -174,12 +151,36 @@ def starwars():
     plt.ylabel('Liczba zestawów')
     plt.legend()
 
-    plt.savefig(PLOTS_DIR / 'star_wars.png')
+    plt.savefig(PLOTS_DIR / 'star_wars_sets_with_films.png')
     plt.close()
 
+
+
+def average_parts_histogram():
+    """
+    Funkcja generuje wykres słupkowy porównujący średnią liczbę elementów na zestaw/rok,
+    wykres typu .png zapisywany jest w folderze plots
+    """
+    sets = pd.read_csv(PROCESSED_DATA_DIR / 'sets.csv')
+
+    # Grupowanie danych po roku i obliczanie średniej liczby części
+    avg_parts_per_year = sets.groupby("year")['num_parts'].mean().reset_index()
+
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x="year", y="num_parts", data=avg_parts_per_year, palette="viridis", hue="year", legend=False)
+
+    plt.title("Średnia liczba części w zestawach LEGO na przestrzeni lat", fontsize=16)
+    plt.xlabel("Rok", fontsize=12)
+    plt.ylabel("Średnia liczba części", fontsize=12)
+    plt.xticks(rotation=90)
+
+    PLOTS_DIR.mkdir(parents=True, exist_ok=True)
+    plot_path = PLOTS_DIR / 'average_parts_histogram.png'
+    plt.savefig(plot_path)
+
 if __name__ == "__main__":
-    plot_pca(pca_data)
-    plot_pca_top5(pca_data)
     parts_by_year_intervals()
-    average_parts_histogram()
+    plot_pca(pca_data=data)
+    plot_pca_top5(pca_data=data)
     starwars()
+    average_parts_histogram()
