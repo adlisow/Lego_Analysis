@@ -1,4 +1,4 @@
-from src.utils import get_repo_path
+from utils import get_repo_path
 
 # Lista plików do pobrania
 FILES = [

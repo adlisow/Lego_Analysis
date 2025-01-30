@@ -3,18 +3,107 @@ stages:
   download_and_process:
     cmd: python src/download_and_process.py
     deps:
+    - path: src/config.py
+      hash: md5
+      md5: 50214e9b91c50efae3ce093addd876bf
+      size: 787
     - path: src/download_and_process.py
       hash: md5
-      md5: d33d430a7f7b01bb19f4eda2f53108f9
-      size: 2350
+      md5: 5d35cc4c28efa5464c882daca3d8ff98
+      size: 1841
+    - path: src/utils.py
+      hash: md5
+      md5: 0e3cb3ae41782831a1f8ef33aaec7fb5
+      size: 394
     outs:
     - path: data/processed
       hash: md5
-      md5: fed3985064836a5df38baf62cd188ea6.dir
-      size: 124652298
+      md5: a8cd1cb0c851f3771120c8db11682b94.dir
+      size: 127190501
       nfiles: 12
     - path: data/raw
       hash: md5
-      md5: a0e207b2c82fee8e416bbf55078fcf0b.dir
-      size: 14866646
+      md5: 3e2f530722d9fc1a96c89443ebe744da.dir
+      size: 15158142
       nfiles: 12
+  prepare_data:
+    cmd: python src/prepare_data.py
+    deps:
+    - path: src/config.py
+      hash: md5
+      md5: 50214e9b91c50efae3ce093addd876bf
+      size: 787
+    - path: src/prepare_data.py
+      hash: md5
+      md5: 828a38d54e96d0fc8b024b2a65e6f996
+      size: 2645
+    - path: src/utils.py
+      hash: md5
+      md5: 0e3cb3ae41782831a1f8ef33aaec7fb5
+      size: 394
+    outs:
+    - path: results/sets_info.csv
+      hash: md5
+      md5: 5df12f9f2ecb77d2bf58c2f0700972f5
+      size: 2739141
+  pca_analysis:
+    cmd: python src/pca_analysis.py
+    deps:
+    - path: src/config.py
+      hash: md5
+      md5: 50214e9b91c50efae3ce093addd876bf
+      size: 787
+    - path: src/pca_analysis.py
+      hash: md5
+      md5: fd107e4cf018fe1f4309c804e5315f8a
+      size: 1162
+    - path: src/utils.py
+      hash: md5
+      md5: 0e3cb3ae41782831a1f8ef33aaec7fb5
+      size: 394
+    outs:
+    - path: results/pca_results.csv
+      hash: md5
+      md5: 8de23e68d08336ba16a4e80ea4c6005a
+      size: 1322167
+  plot:
+    cmd: python src/plot.py
+    deps:
+    - path: src/config.py
+      hash: md5
+      md5: 50214e9b91c50efae3ce093addd876bf
+      size: 787
+    - path: src/plot.py
+      hash: md5
+      md5: 73143470e8be78c1b20675ea2a449676
+      size: 1809
+    - path: src/utils.py
+      hash: md5
+      md5: 0e3cb3ae41782831a1f8ef33aaec7fb5
+      size: 394
+    outs:
+    - path: plots
+      hash: md5
+      md5: 46a0ed117fec02ddcc4ac59dfe922575.dir
+      size: 29243
+      nfiles: 1
+  p_colors:
+    cmd: python src/p_colors.py
+    deps:
+    - path: src/config.py
+      hash: md5
+      md5: 50214e9b91c50efae3ce093addd876bf
+      size: 787
+    - path: src/p_colors.py
+      hash: md5
+      md5: a1ec078fd66771859d3ec96167ce2c20
+      size: 2598
+    - path: src/utils.py
+      hash: md5
+      md5: 0e3cb3ae41782831a1f8ef33aaec7fb5
+      size: 394
+    outs:
+    - path: results/green_sets_result.csv
+      hash: md5
+      md5: 05b1977a4b69f1fb8b10d434986c37bd
+      size: 3829410

@@ -2,7 +2,45 @@ stages:
   download_and_process:
     cmd: python src/download_and_process.py
     deps:
+    - src/utils.py
+    - src/config.py
     - src/download_and_process.py
     outs:
     - data/raw
     - data/processed
+
+  prepare_data:
+    cmd: python src/prepare_data.py
+    deps:
+    - src/utils.py
+    - src/config.py
+    - src/prepare_data.py
+    outs:
+    - results/sets_info.csv
+
+  pca_analysis:
+    cmd: python src/pca_analysis.py
+    deps:
+    - src/utils.py
+    - src/config.py
+    - src/pca_analysis.py
+    outs:
+    - results/pca_results.csv
+
+  plot:
+    cmd: python src/plot.py
+    deps:
+    - src/utils.py
+    - src/config.py
+    - src/plot.py
+    outs:
+    - plots
+
+  p_colors:
+    cmd: python src/p_colors.py
+    deps:
+    - src/utils.py
+    - src/config.py
+    - src/p_colors.py
+    outs:
+    - results/green_sets_result.csv
