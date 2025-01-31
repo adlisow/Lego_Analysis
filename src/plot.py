@@ -8,8 +8,8 @@ data = pd.read_csv(RESULTS_DIR / "pca_results.csv")
 
 def parts_by_year_intervals():
     """
-    Funkcja generuje wykres słupkowy porównujący średnią liczbę elementów na zestaw w wybranych przedziałach czasowych,
-    wykres typu .png zapisywany jest w folderze plots
+    The function generates a bar chart comparing the average number of items per set over selected time intervals,
+    a .png type plot is saved in the plots folder
     """
     sets = pd.read_csv(PROCESSED_DATA_DIR / 'sets.csv')
 
@@ -42,7 +42,7 @@ def parts_by_year_intervals():
 
 def plot_pca(pca_data, x_col='principal_component_1', y_col='principal_component_2', theme_col='theme'):
     """
-    Wizualizacja PCA z adnotacjami punktów odstających.
+    PCA visualization with outlier point annotations.
     """
     fig, ax = plt.subplots(figsize=(12, 10))
     ax.set(xlabel='Principal Component 1', ylabel='Principal Component 2', title='2 Component PCA')
@@ -79,7 +79,7 @@ def plot_pca(pca_data, x_col='principal_component_1', y_col='principal_component
 
 def plot_pca_top5(pca_data, x_col='principal_component_1', y_col='principal_component_2', theme_col='theme'):
     """
-    Wykres PCA dla 5 najczęściej występujących tematów.
+    PCA chart for the 5 most frequently occurring topics.
     """
     # Wybór 5 najczęściej występujących tematów
     top_themes = pca_data[theme_col].value_counts().head(5).index
@@ -117,7 +117,7 @@ def plot_pca_top5(pca_data, x_col='principal_component_1', y_col='principal_comp
 
 def starwars():
     """
-    Tworzy wykres liczby nowych typów zestawów LEGO Star Wars na przestrzeni lat z oznaczeniem premier filmowych.
+    Creates a chart of the number of new LEGO Star Wars set types over the years, marked by movie releases.
     """
     sets_info = pd.read_csv(RESULTS_DIR / 'sets_info.csv')
 
@@ -158,8 +158,8 @@ def starwars():
 
 def average_parts_histogram():
     """
-    Funkcja generuje wykres słupkowy porównujący średnią liczbę elementów na zestaw/rok,
-    wykres typu .png zapisywany jest w folderze plots
+    The function generates a bar chart comparing the average number of items per set/year,
+    a .png type plot is saved in the plots folder.
     """
     sets = pd.read_csv(PROCESSED_DATA_DIR / 'sets.csv')
 

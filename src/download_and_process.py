@@ -5,7 +5,7 @@ import requests
 from config import FILES, BASE_URL, RAW_DATA_DIR, PROCESSED_DATA_DIR
 
 def download_files():
-    """Funkcja pobierająca pliki do folderu data/raw"""
+    """Function downloading files to the data/raw folder"""
     os.makedirs(RAW_DATA_DIR, exist_ok=True)
     for file_name in FILES:
         url = f"{BASE_URL}{file_name}"
@@ -20,7 +20,7 @@ def download_files():
             print(f"Failed to download {file_name}: {response.status_code}")
 
 def process_files():
-    """Funkcja rozpakowuje pliki do folderu data/processed (.csv.gz -> .csv)"""
+    """Function unpacks files to data/processed folder (.csv.gz -> .csv)"""
     os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
     for file_name in FILES:
         raw_file_path = RAW_DATA_DIR / file_name

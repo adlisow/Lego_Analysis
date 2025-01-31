@@ -8,7 +8,7 @@ features = ['num_minifigs', 'num_parts', 'unique_parts']
 target = "theme"
 
 def perform_pca(n_components=2):
-    """Wykonuje analize PCA dla ustalonych danych i zapisuje wyniki do pliku csv w folderze results"""
+    """Performs PCA analysis on the determined data and saves the results to a csv file in the results folder."""
 
     x = data.loc[:, features].values
     y = data.loc[:, [target]]

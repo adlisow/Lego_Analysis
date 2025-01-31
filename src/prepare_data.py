@@ -2,7 +2,7 @@ import pandas as pd
 from config import PROCESSED_DATA_DIR, RESULTS_DIR
 
 def prepare_data(sort_by="year", ascending=True):
-    """Przygotowuje plik csv z informacjami o zestawach lego, które posłużą nam w analizie"""
+    """Prepares a csv file with information about Lego sets that will be used in the analysis."""
 
     sets = pd.read_csv(PROCESSED_DATA_DIR / "sets.csv")
     themes = pd.read_csv(PROCESSED_DATA_DIR / "themes.csv")

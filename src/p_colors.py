@@ -3,8 +3,8 @@ from config import PROCESSED_DATA_DIR, RESULTS_DIR
 
 def p_colors(color_name: str):
     """
-    Funkcja generuje plik csv zestawów posortowanych po % udziale wybranego koloru podanym jako argument
-    i zapisuje wyniki do pliku csv w folderze results
+    The function generates a csv file of sets sorted by the percentage of the selected color given as an argument
+    and saves the results to a csv file in the results folder.
     """
 
     inventory_parts = pd.read_csv(PROCESSED_DATA_DIR / "inventory_parts.csv")
