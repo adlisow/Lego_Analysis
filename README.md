@@ -4,7 +4,11 @@ The aim of this project is to analyse the dataset from https://rebrickable.com c
 We made problems to solve by ourselves focused on the sets, its uniqueness by parts, colors and minifigures.
 We use the PCA in order visualize themes similarity where the features are number of elements, figures and unique elements.
 
+## Database:
 ![dataset_schema.png](dataset_schema.png)
+
+![image](https://github.com/user-attachments/assets/768ebbbc-8b1f-4c05-b538-d4164ee4c28a)
+
 
 ## How to run this project
 
